@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RentalSystemData.Migrations
 {
-    public partial class init : Migration
+    public partial class initt : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,11 +42,17 @@ namespace RentalSystemData.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Age = table.Column<int>(type: "int", nullable: false)
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    EmployeeCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Employees", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Employees_EmployeeCategories_EmployeeCategoryId",
+                        column: x => x.EmployeeCategoryId,
+                        principalTable: "EmployeeCategories",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -60,12 +66,17 @@ namespace RentalSystemData.Migrations
 
             migrationBuilder.InsertData(
                 table: "Employees",
-                columns: new[] { "Id", "Age", "FirstName", "LastName", "Name" },
+                columns: new[] { "Id", "Age", "EmployeeCategoryId", "FirstName", "LastName", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("ee237416-9368-49d8-a968-058c9259eef8"), 0, "Liridona", "Daku", "Employee B" },
-                    { new Guid("ff237416-9368-49d8-a968-058c9259eef8"), 0, "Aferdita", "Hasani", "Employee A" }
+                    { new Guid("ee237416-9368-49d8-a968-058c9259eef8"), 0, null, "Liridona", "Daku", "Employee B" },
+                    { new Guid("ff237416-9368-49d8-a968-058c9259eef8"), 0, null, "Aferdita", "Hasani", "Employee A" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employees_EmployeeCategoryId",
+                table: "Employees",
+                column: "EmployeeCategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -74,10 +85,10 @@ namespace RentalSystemData.Migrations
                 name: "Accounts");
 
             migrationBuilder.DropTable(
-                name: "EmployeeCategories");
+                name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "EmployeeCategories");
         }
     }
 }

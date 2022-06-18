@@ -12,8 +12,8 @@ using RentalSystemData;
 namespace RentalSystemData.Migrations
 {
     [DbContext(typeof(RentalSystemDbContext))]
-    [Migration("20220601113121_init")]
-    partial class init
+    [Migration("20220610075825_initt")]
+    partial class initt
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,6 +66,9 @@ namespace RentalSystemData.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("EmployeeCategoryId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -79,6 +82,8 @@ namespace RentalSystemData.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeCategoryId");
 
                     b.ToTable("Employees");
 
@@ -114,6 +119,15 @@ namespace RentalSystemData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EmployeeCategories");
+                });
+
+            modelBuilder.Entity("RentalSystemData.Entities.Employee", b =>
+                {
+                    b.HasOne("RentalSystemData.Entities.EmployeeCategory", "EmployeeCategory")
+                        .WithMany()
+                        .HasForeignKey("EmployeeCategoryId");
+
+                    b.Navigation("EmployeeCategory");
                 });
 #pragma warning restore 612, 618
         }

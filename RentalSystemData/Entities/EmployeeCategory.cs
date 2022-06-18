@@ -11,7 +11,6 @@ namespace RentalSystemData.Entities
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = String.Empty;
-
         public EmployeeCategory()
         {
         }

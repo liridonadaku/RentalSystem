@@ -64,6 +64,9 @@ namespace RentalSystemData.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("EmployeeCategoryId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -77,6 +80,8 @@ namespace RentalSystemData.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeCategoryId");
 
                     b.ToTable("Employees");
 
@@ -112,6 +117,15 @@ namespace RentalSystemData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EmployeeCategories");
+                });
+
+            modelBuilder.Entity("RentalSystemData.Entities.Employee", b =>
+                {
+                    b.HasOne("RentalSystemData.Entities.EmployeeCategory", "EmployeeCategory")
+                        .WithMany()
+                        .HasForeignKey("EmployeeCategoryId");
+
+                    b.Navigation("EmployeeCategory");
                 });
 #pragma warning restore 612, 618
         }
