@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ViewModels
 {
-    public class EmployeeViewModel
+    public class StudentViewModel
     {
-        public EmployeeViewModel()
+        public StudentViewModel()
         {
         }
     }

@@ -30,7 +30,6 @@ namespace RentalSystemData
             _entities.AddRange(entities);
         }
 
-
         public virtual void Update(TEntity entity)
         {
             _entities.Update(entity);
@@ -40,8 +39,6 @@ namespace RentalSystemData
         {
             _entities.UpdateRange(entities);
         }
-
-
 
         public virtual void Remove(TEntity entity)
         {
@@ -53,12 +50,10 @@ namespace RentalSystemData
             _entities.RemoveRange(entities);
         }
 
-
         public virtual int Count()
         {
             return _entities.Count();
         }
-
 
         public virtual IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {

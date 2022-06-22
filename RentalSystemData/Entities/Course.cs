@@ -1,17 +1,20 @@
-﻿using System;
+﻿using RentalSystemData.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RentalSystemData.Interfaces;
 
 namespace RentalSystemData.Entities
 {
-    public class EmployeeCategory : IEntity
+    public class Course : IEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = String.Empty;
-        public EmployeeCategory()
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public double? Credits { get; set; }
+        public Course()
         {
         }
     }

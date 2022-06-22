@@ -11,8 +11,8 @@ namespace RentalSystemData
 {
     public interface IRentalSystemDataService : IDataService
     {
-        IRepository<Employee> Employees { get; }
-        IRepository<Account> Accounts { get; }
-        IRepository<EmployeeCategory> EmployeeCategories { get; }
+        IRepository<Student> Students { get; }
+        IRepository<Enrollment> Enrollments { get; }
+        IRepository<Department> Departments { get; }
     }
 }

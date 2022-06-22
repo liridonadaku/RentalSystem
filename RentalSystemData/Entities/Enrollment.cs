@@ -7,13 +7,13 @@ using RentalSystemData.Interfaces;
 
 namespace RentalSystemData.Entities
 {
-    public class Account : IEntity
+    public class Enrollment : IEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string AccountNumber { get; set; }
+        public string EnrollmentNumber { get; set; }
 
-        public Account()
+        public Enrollment()
         {
         }
     }

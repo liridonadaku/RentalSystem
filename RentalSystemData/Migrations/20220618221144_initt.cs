@@ -10,20 +10,7 @@ namespace RentalSystemData.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Accounts",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AccountNumber = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Accounts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EmployeeCategories",
+                name: "Departments",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -31,11 +18,24 @@ namespace RentalSystemData.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmployeeCategories", x => x.Id);
+                    table.PrimaryKey("PK_Departments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employees",
+                name: "Enrollments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EnrollmentNumber = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Enrollments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Students",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -43,52 +43,52 @@ namespace RentalSystemData.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
-                    EmployeeCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employees", x => x.Id);
+                    table.PrimaryKey("PK_Students", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Employees_EmployeeCategories_EmployeeCategoryId",
-                        column: x => x.EmployeeCategoryId,
-                        principalTable: "EmployeeCategories",
+                        name: "FK_Students_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Departments",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
-                table: "Accounts",
-                columns: new[] { "Id", "AccountNumber", "Name" },
+                table: "Enrollments",
+                columns: new[] { "Id", "EnrollmentNumber", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("160dc90e-fce0-487a-990d-7ee23bf6f5fd"), "2-Acc456", "Account B" },
-                    { new Guid("b7798b34-b066-421f-bd8b-f8ea6134c4a4"), "1-Acc123", "Account A" }
+                    { new Guid("160dc90e-fce0-487a-990d-7ee23bf6f5fd"), "2-Acc456", "Enrollment B" },
+                    { new Guid("b7798b34-b066-421f-bd8b-f8ea6134c4a4"), "1-Acc123", "Enrollment A" }
                 });
 
             migrationBuilder.InsertData(
-                table: "Employees",
-                columns: new[] { "Id", "Age", "EmployeeCategoryId", "FirstName", "LastName", "Name" },
+                table: "Students",
+                columns: new[] { "Id", "Age", "DepartmentId", "FirstName", "LastName", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("ee237416-9368-49d8-a968-058c9259eef8"), 0, null, "Liridona", "Daku", "Employee B" },
-                    { new Guid("ff237416-9368-49d8-a968-058c9259eef8"), 0, null, "Aferdita", "Hasani", "Employee A" }
+                    { new Guid("ee237416-9368-49d8-a968-058c9259eef8"), 0, null, "Liridona", "Daku", "Student B" },
+                    { new Guid("ff237416-9368-49d8-a968-058c9259eef8"), 0, null, "Aferdita", "Hasani", "Student A" }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_EmployeeCategoryId",
-                table: "Employees",
-                column: "EmployeeCategoryId");
+                name: "IX_Students_DepartmentId",
+                table: "Students",
+                column: "DepartmentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Accounts");
+                name: "Enrollments");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "Students");
 
             migrationBuilder.DropTable(
-                name: "EmployeeCategories");
+                name: "Departments");
         }
     }
 }

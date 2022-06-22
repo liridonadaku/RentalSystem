@@ -14,44 +14,44 @@ namespace RentalSystemData
     public class RentalSystemDbContext : DbContext, IRentalSystemDataService
     {
         private readonly RentalSystemDbContext db;
-        public DbSet<Employee> Employees { get; set; }
-        public DbSet<Account> Accounts { get; set; }
-        public DbSet<EmployeeCategory> EmployeeCategories { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<Department> Departments { get; set; }
        
-        private IRepository<Employee> employeeRepository;
-        public IRepository<Employee> EmployeeRepository
+        private IRepository<Student> studentRepository;
+        public IRepository<Student> StudentRepository
         {
             get
             {
-                return employeeRepository ??
-                    (employeeRepository = new BaseRepository<Employee>(db));
+                return studentRepository ??
+                    (studentRepository = new BaseRepository<Student>(db));
             }
         }
         
-        private IRepository<Account> accountRepository;
-        public IRepository<Account> AccountRepository
+        private IRepository<Enrollment> enrollmentRepository;
+        public IRepository<Enrollment> EnrollmentRepository
         {
             get
             {
-                return accountRepository ??
-                    (accountRepository = new BaseRepository<Account>(db));
+                return enrollmentRepository ??
+                    (enrollmentRepository = new BaseRepository<Enrollment>(db));
             }
         }
-        private IRepository<EmployeeCategory> employeeCategoryRepository;
-        public IRepository<EmployeeCategory> EmployeeCategoryRepository
+        private IRepository<Department> departmentRepository;
+        public IRepository<Department> DepartmentRepository
         {
             get
             {
-                return employeeCategoryRepository ??
-                    (employeeCategoryRepository = new BaseRepository<EmployeeCategory>(db));
+                return departmentRepository ??
+                    (departmentRepository = new BaseRepository<Department>(db));
             }
         }
 
-        IRepository<Employee> IRentalSystemDataService.Employees => throw new NotImplementedException();
+        IRepository<Student> IRentalSystemDataService.Students => throw new NotImplementedException();
 
-        IRepository<Account> IRentalSystemDataService.Accounts => throw new NotImplementedException();
+        IRepository<Enrollment> IRentalSystemDataService.Enrollments => throw new NotImplementedException();
 
-        IRepository<EmployeeCategory> IRentalSystemDataService.EmployeeCategories => throw new NotImplementedException();
+        IRepository<Department> IRentalSystemDataService.Departments => throw new NotImplementedException();
 
         public RentalSystemDbContext(DbContextOptions options) : base(options)
         {

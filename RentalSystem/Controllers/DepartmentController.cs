@@ -5,48 +5,48 @@ using RentalSystemData.Entities;
 
 namespace RentalSystem
 {
-    public class EmployeeCategoryController : Controller
+    public class DepartmentController : Controller
     {
         private readonly RentalSystemDbContext _context;
 
-        public EmployeeCategoryController(RentalSystemDbContext context)
+        public DepartmentController(RentalSystemDbContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.EmployeeCategories.ToListAsync());
+            return View(await _context.Departments.ToListAsync());
         }
         public IActionResult AddOrEdit(Guid id)
         {
             if (id != null && id != Guid.Empty)
-                return View(_context.EmployeeCategories.Find(id));
+                return View(_context.Departments.Find(id));
             else
-                return View(new EmployeeCategory());
+                return View(new Department());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddOrEdit([Bind("Id,Name")] EmployeeCategory EmployeeCategory)
+        public async Task<IActionResult> AddOrEdit([Bind("Id,Name")] Department Department)
         {
-            if (EmployeeCategory != null)
+            if (Department != null)
             {
-                if (EmployeeCategory.Id != null && EmployeeCategory.Id != Guid.Empty)
+                if (Department.Id != null && Department.Id != Guid.Empty)
                 {
-                    _context.Update(EmployeeCategory);
+                    _context.Update(Department);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    EmployeeCategory.Id = Guid.NewGuid();
-                    _context.Add(EmployeeCategory);
+                    Department.Id = Guid.NewGuid();
+                    _context.Add(Department);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
             }
 
-            return View(EmployeeCategory);
+            return View(Department);
         }
     }
 }

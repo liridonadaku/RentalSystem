@@ -22,13 +22,28 @@ namespace RentalSystemData.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("RentalSystemData.Entities.Account", b =>
+            modelBuilder.Entity("RentalSystemData.Entities.Department", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AccountNumber")
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("RentalSystemData.Entities.Enrollment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("EnrollmentNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -38,24 +53,24 @@ namespace RentalSystemData.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Enrollments");
 
                     b.HasData(
                         new
                         {
                             Id = new Guid("b7798b34-b066-421f-bd8b-f8ea6134c4a4"),
-                            AccountNumber = "1-Acc123",
-                            Name = "Account A"
+                            EnrollmentNumber = "1-Acc123",
+                            Name = "Enrollment A"
                         },
                         new
                         {
                             Id = new Guid("160dc90e-fce0-487a-990d-7ee23bf6f5fd"),
-                            AccountNumber = "2-Acc456",
-                            Name = "Account B"
+                            EnrollmentNumber = "2-Acc456",
+                            Name = "Enrollment B"
                         });
                 });
 
-            modelBuilder.Entity("RentalSystemData.Entities.Employee", b =>
+            modelBuilder.Entity("RentalSystemData.Entities.Student", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,7 +79,7 @@ namespace RentalSystemData.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("EmployeeCategoryId")
+                    b.Property<Guid?>("DepartmentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FirstName")
@@ -81,9 +96,9 @@ namespace RentalSystemData.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeCategoryId");
+                    b.HasIndex("DepartmentId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Students");
 
                     b.HasData(
                         new
@@ -92,7 +107,7 @@ namespace RentalSystemData.Migrations
                             Age = 0,
                             FirstName = "Aferdita",
                             LastName = "Hasani",
-                            Name = "Employee A"
+                            Name = "Student A"
                         },
                         new
                         {
@@ -100,32 +115,17 @@ namespace RentalSystemData.Migrations
                             Age = 0,
                             FirstName = "Liridona",
                             LastName = "Daku",
-                            Name = "Employee B"
+                            Name = "Student B"
                         });
                 });
 
-            modelBuilder.Entity("RentalSystemData.Entities.EmployeeCategory", b =>
+            modelBuilder.Entity("RentalSystemData.Entities.Student", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EmployeeCategories");
-                });
-
-            modelBuilder.Entity("RentalSystemData.Entities.Employee", b =>
-                {
-                    b.HasOne("RentalSystemData.Entities.EmployeeCategory", "EmployeeCategory")
+                    b.HasOne("RentalSystemData.Entities.Department", "Department")
                         .WithMany()
-                        .HasForeignKey("EmployeeCategoryId");
+                        .HasForeignKey("DepartmentId");
 
-                    b.Navigation("EmployeeCategory");
+                    b.Navigation("Department");
                 });
 #pragma warning restore 612, 618
         }
