@@ -16,6 +16,11 @@ namespace RentalSystemData.Entities
         public int Age { get; set; }   
         public Department? Department { get; set; }
         public Guid? DepartmentId { get; set; }
+        public List<Certification> Certifications { get; set; }
+
+        //public virtual ICollection<Certification> Certifications { get; set; }
+        public List<Enrollment> Enrollments { get; set; }
+
         public Student()
         {
         }

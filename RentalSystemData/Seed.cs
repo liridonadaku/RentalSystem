@@ -16,15 +16,15 @@ namespace RentalSystemData
             {
                 Id = new Guid("ff237416-9368-49d8-a968-058c9259eef8"),
                 Name = "Student A",
-                FirstName = "Aferdita",
-                LastName = "Hasani",
+                FirstName = "A",
+                LastName = "A",
             });
             builder.Entity<Student>().HasData(new Student()
             {
                 Id = new Guid("ee237416-9368-49d8-a968-058c9259eef8"),
                 Name = "Student B",
-                FirstName = "Liridona",
-                LastName = "Daku",
+                FirstName = "B",
+                LastName = "B",
             });
             builder.Entity<Enrollment>().HasData(new Enrollment()
             {

@@ -56,5 +56,18 @@ namespace RentalSystem
             }
             return View(Student);
         }
+        [HttpGet]
+        public IActionResult Details(Guid id)
+        {
+            if (id != null && id != Guid.Empty)
+            {
+                //var ReadMovie = context.Movies.Include(t => t.Genres).FirstOrDefaultAsync(t => t.MovieId == id).ToList();
+                var stus = _context.Students.Include(t => t.Certifications).Include(t=>t.Enrollments).ToList();
+
+                //var Students = _context.Students.Include(e => e.Department);
+                return View(stus.FirstOrDefault(x=>x.Id==id));
+            }
+            return View();
+        }      
     }
 }

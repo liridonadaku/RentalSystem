@@ -1,14 +1,15 @@
-﻿@model RentalSystemData.Entities.Department
+﻿@model RentalSystemData.Entities.Certification
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "AddCertification";
 }
 
-<h4>Department create form</h4>
+<h4>add a certification for this employee</h4>
 <hr />
 <div class="row">
     <div class="col-md-6">
-        <form asp-action="AddOrEdit">
+        <form asp-action="AddCertification">
+            @Html.HiddenFor(x=>Model.StudentId)
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">

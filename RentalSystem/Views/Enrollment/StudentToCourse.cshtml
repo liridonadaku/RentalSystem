@@ -1,14 +1,15 @@
-﻿@model RentalSystemData.Entities.Department
+﻿@model RentalSystemData.Entities.Enrollment
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "StudentToCourse";
 }
-
-<h4>Department create form</h4>
+@Html.EditorFor(x=>x.StudentId)
+@Html.EditorFor(x=>x.CourseId)
+<h4>Add student to specific course</h4>
 <hr />
 <div class="row">
     <div class="col-md-6">
-        <form asp-action="AddOrEdit">
+        <form asp-action="StudentToCourse">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">

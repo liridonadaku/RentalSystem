@@ -1,0 +1,59 @@
+﻿@model RentalSystemData.Entities.Enrollment
+
+@{
+    ViewData["Title"] = "CourseList";
+}
+
+<h4>xx create form</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="CourseList">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            @Html.EditorFor(x=>x.StudentId)
+          <a href="@Url.Action("AddOrEdit","Course",new{ })">Add course</a>
+               <div class="form-group">
+            @Html.LabelFor(model => model.CourseId, "Id", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CourseID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+            </div>
+             <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="EnrollmentNumber" class="control-label"></label>
+                <input asp-for="EnrollmentNumber" class="form-control" />
+                <span asp-validation-for="EnrollmentNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="submit" value="Submit" class="btn btn-primary btn-block" />
+                </div>
+                <div class="form-group col-md-6">
+                    <a asp-action="Index" class="btn btn-secondary btn-block"><i class="fa fa-table"></i> Back to List</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+
+
+
+
+
+
+

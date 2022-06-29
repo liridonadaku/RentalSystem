@@ -12,8 +12,8 @@ using RentalSystemData;
 namespace RentalSystemData.Migrations
 {
     [DbContext(typeof(RentalSystemDbContext))]
-    [Migration("20220618221144_initt")]
-    partial class initt
+    [Migration("20220627133835_inittte")]
+    partial class inittte
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,50 @@ namespace RentalSystemData.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("RentalSystemData.Entities.Certification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Certifications");
+                });
+
+            modelBuilder.Entity("RentalSystemData.Entities.Course", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double?>("Credits")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Courses");
+                });
 
             modelBuilder.Entity("RentalSystemData.Entities.Department", b =>
                 {
@@ -45,6 +89,9 @@ namespace RentalSystemData.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("EnrollmentNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -53,7 +100,14 @@ namespace RentalSystemData.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("Enrollments");
 
@@ -107,18 +161,42 @@ namespace RentalSystemData.Migrations
                         {
                             Id = new Guid("ff237416-9368-49d8-a968-058c9259eef8"),
                             Age = 0,
-                            FirstName = "Aferdita",
-                            LastName = "Hasani",
+                            FirstName = "A",
+                            LastName = "A",
                             Name = "Student A"
                         },
                         new
                         {
                             Id = new Guid("ee237416-9368-49d8-a968-058c9259eef8"),
                             Age = 0,
-                            FirstName = "Liridona",
-                            LastName = "Daku",
+                            FirstName = "B",
+                            LastName = "B",
                             Name = "Student B"
                         });
+                });
+
+            modelBuilder.Entity("RentalSystemData.Entities.Certification", b =>
+                {
+                    b.HasOne("RentalSystemData.Entities.Student", "Student")
+                        .WithMany("Certifications")
+                        .HasForeignKey("StudentId");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("RentalSystemData.Entities.Enrollment", b =>
+                {
+                    b.HasOne("RentalSystemData.Entities.Course", "Course")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("CourseId");
+
+                    b.HasOne("RentalSystemData.Entities.Student", "Student")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("StudentId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("RentalSystemData.Entities.Student", b =>
@@ -128,6 +206,18 @@ namespace RentalSystemData.Migrations
                         .HasForeignKey("DepartmentId");
 
                     b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("RentalSystemData.Entities.Course", b =>
+                {
+                    b.Navigation("Enrollments");
+                });
+
+            modelBuilder.Entity("RentalSystemData.Entities.Student", b =>
+                {
+                    b.Navigation("Certifications");
+
+                    b.Navigation("Enrollments");
                 });
 #pragma warning restore 612, 618
         }

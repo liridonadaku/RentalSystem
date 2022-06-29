@@ -14,5 +14,7 @@ namespace RentalSystemData
         IRepository<Student> Students { get; }
         IRepository<Enrollment> Enrollments { get; }
         IRepository<Department> Departments { get; }
+        IRepository<Certification> Certifications { get; }
+        IRepository<Course> Courses { get; }
     }
 }

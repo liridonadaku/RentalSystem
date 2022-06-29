@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace RentalSystemData.Entities
 {
-    public class Course : IEntity
+    public class Certification : IEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = String.Empty;
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
-        public double? Credits { get; set; }
-        public List<Enrollment> Enrollments { get; set; }
-        public Course()
+        public Guid? StudentId { get; set; }
+        public Student Student { get; set; }
+
+        public Certification()
         {
         }
     }
